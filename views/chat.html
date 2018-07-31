@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>chat</title>
+    <link rel="stylesheet" href="../public/stylesheets/chat.css">
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/art-template/lib/template-web.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+<div id="message-container">
+
+</div>
+<form action="" id="send">
+<input type="text"><br>
+<input type="submit" value="send">
+</form>
+<h3>当前登录用户： <i>{{user.name}}</i></h3>
+<a href="/logout">退出</a>
+<script type="template" id="template">
+<ul>
+    {{template1}}
+    {{template5}}
+    <li id="selfmsg">{{template2}} says: {{template3}}</li>
+    {{template6}}
+    <li id="othermsg">{{template2}} says: {{template3}}</li>
+    {{template7}}
+    {{template4}}
+</ul>
+</script>
+<script src="../public/javascripts/chat.js"></script>
+</body>
+</html>

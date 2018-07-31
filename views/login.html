@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+</head>
+<body>
+<div>
+
+</div>
+<h2>login</h2>
+<p id="inform"></p>
+<form id="login" action="/login" method="post">
+    <input type="text" placeholder="user name" name="name"><br>
+    <input type="email" placeholder="email" name="email"><br>
+    <input type="password" placeholder="password" name="password"><br>
+    <input type="submit" value="login">
+</form>
+<p>没有账号？<a href="/register">注册</a></p>
+<script src="../public/javascripts/login.js"></script>
+</body>
+</html>
