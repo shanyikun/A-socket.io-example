@@ -16,6 +16,9 @@ router.get('/chat',function(request,response){
             template5: '{{if $value.name===username}}',
             template6: '{{else}}',
             template7: '{{/if}}',
+            template8: '{{each userList}}',
+            template9: '{{$value}}',
+            template10: '{{/each}}',
             user: request.session.user
         })
     }

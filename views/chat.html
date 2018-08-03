@@ -9,26 +9,63 @@
     <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
-<div id="message-container">
+<div id="page">
+  <div id="container">
+      <div id="userList">
 
+      </div>
+
+      <div id="message-container-2">
+        <div id="chat-name-container">
+              <h4 style="margin: 5px 0px;">当前对话人: <span>messages</span></h4>
+            <hr>
+        </div>
+        <div id="message-container">
+
+        </div>
+        <div id="form-container">
+            <hr>
+           <form action="" id="send">
+              <textarea></textarea><br>
+              <input type="submit" value="send">
+           </form>
+        </div>
+      </div>
+  </div>
 </div>
-<form action="" id="send">
-<input type="text"><br>
-<input type="submit" value="send">
-</form>
 <h3>当前登录用户： <i>{{user.name}}</i></h3>
 <a href="/logout">退出</a>
-<script type="template" id="template">
+
+<script type="template" id="template">  <!--信息列表模板-->
+
+  <!--  {{template1}}     //非列表形式
+    {{template5}}
+    <p class="selfmsg">{{template2}} says: {{template3}}</p>
+    {{template6}}
+    <p class="othermsg">{{template2}} says: {{template3}}</p>
+    {{template7}}
+    {{template4}}-->
+
 <ul>
     {{template1}}
     {{template5}}
-    <li id="selfmsg">{{template2}} says: {{template3}}</li>
+    <li class="selfmsg">{{template2}} says: {{template3}}</li>
     {{template6}}
-    <li id="othermsg">{{template2}} says: {{template3}}</li>
+    <li class="othermsg">{{template2}}says: {{template3}}</li>
     {{template7}}
     {{template4}}
 </ul>
 </script>
+
+<script type="template" id="template2">   <!--在线用户列表模板-->
+    <ul id="userList-ul">
+        {{template8}}
+        <li class="userList">{{template9}}</li>
+        {{template10}}
+    </ul>
+</script>
+
+
 <script src="../public/javascripts/chat.js"></script>
 </body>
 </html>

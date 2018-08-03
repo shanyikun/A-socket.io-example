@@ -1,7 +1,117 @@
-#selfmsg{
+#message-container ul{
+    list-style-type: none;
+    padding-left: 0px;
+}
+.selfmsg{
     background-color: greenyellow;
+    border: solid 1px greenyellow;
+    max-width: 250px;
+    margin: 10px 5px;
+    padding: 5px;
+    border-radius: 4px;
+    display: inline;
+    float: right;
+    clear: both;
+    word-break: break-all;
 }
 
-#othermsg{
+.othermsg{
     background-color: lightgray;
+    border: solid 1px lightgray;
+    max-width: 250px;
+    margin: 10px 5px;
+    padding: 5px;
+    border-radius: 4px;
+    display: inline;
+    float: left;
+    clear: both;
+    word-break: break-all;
+}
+
+/*.othermsg{   //非列表形式
+    background-color: lightgray;
+    border: solid 1px lightgray;
+    height: 30px;
+    margin: 10px 5px;
+    border-radius: 4px;
+    display: inline;
+    float: left;
+    clear: both;
+}
+.selfmsg{
+    background-color: greenyellow;
+    border: solid 1px greenyellow;
+    height: 30px;
+    margin: 10px 5px;
+    border-radius: 4px;
+    display: inline;
+    float: right;
+    clear: both;
+}*/
+#page{
+    display: flex;
+    justify-content: space-around;
+}
+#container{
+    height: 500px;
+    width: 50%;
+    display: flex;
+}
+#userList{
+    background-color: #EEEAE8;
+    width: 30%;
+}
+#message-container-2{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    justify-content: space-between;
+    background-color: #F5F5F5;
+}
+#chat-name-container{
+    height:10%;
+}
+#message-container{
+    height: 60%;
+    overflow: auto;
+}
+#form-container{
+    height: 30%;
+    position: relative;
+}
+input[type=text]{
+    height: 100px;
+    width: 100%;
+    background-color: #F5F5F5;
+    border-color: #F5F5F5;
+}
+input[type=submit]{
+    position: absolute;
+    right: 3px;
+    bottom: 3px;
+    background-color: #F5F5F5;
+    width: 60px;
+    height: 30px
+}
+#userList-ul{
+    padding: 0px;
+}
+#userList-ul li{
+    list-style-type: none;
+    width: 100%;
+    height: 40px;
+    text-align: left;
+}
+#userList-ul li:hover{
+    background-color: #C3C3C3;
+}
+textarea{
+    border-color: #F5F5F5;
+    width: 99%;
+    background-color: #F5F5F5;
+    height: 110px;
+    outline: none;
+}
+#chat-name-container h4{
+    margin: 5px 0px 10px 0px;
 }
