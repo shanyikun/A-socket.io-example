@@ -19,6 +19,9 @@ router.get('/chat',function(request,response){
             template8: '{{each userList}}',
             template9: '{{$value}}',
             template10: '{{/each}}',
+            template11: '{{each friendsList}}',
+            template12: '{{$value.name}}',
+            template13: '{{/each}}',
             user: request.session.user
         })
     }
@@ -97,6 +100,23 @@ router.post('/login',function(request,response){
             response.json({
                 err_code: 0,
                 message: 'login success'
+            })
+        }
+    })
+})
+
+router.get('/getContactList', function(request, response){    //获取用户列表
+    users.find(function(err,data){
+        if(err){
+            return response.json({
+                err_code: 500,
+                message: 'server error'
+            })
+        }
+        else {
+            return response.json({
+                err_code: 0,
+                message: data
             })
         }
     })

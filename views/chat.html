@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <title>chat</title>
     <link rel="stylesheet" href="../public/stylesheets/chat.css">
-    <link rel="stylesheet" href="../public/stylesheets/icon-font/iconfont.css">
+    <link rel="stylesheet" href="../public/stylesheets/userinfo-icon-font/iconfont.css">
+    <link rel="stylesheet" href="../public/stylesheets/friends-icon-font/iconfont.css">
+    <link rel="stylesheet" href="../public/stylesheets/onlineuser-icon-font/iconfont.css">
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
     <script src="../node_modules/art-template/lib/template-web.js"></script>
     <script src="/socket.io/socket.io.js"></script>
@@ -14,6 +16,8 @@
   <div id="container">
       <div id="userinfo">
           <div class="iconfont icon-account" title="账号信息"></div>   <!--字体图标-->
+          <div class="iconfont icon-tongxunlu" title="好友列表"></div>
+          <div class="iconfont icon-zaixianyonghu" title="在线用户"></div>
           <div class="logout-link">
               <a href="/logout">退出</a>
           </div>
@@ -24,7 +28,7 @@
 
       <div id="message-container-2">
         <div id="chat-name-container">
-              <h4 style="margin: 5px 0px;">当前对话人: <span></span></h4>
+              <h4 style="margin: 8px 0px 12px 0px;">当前对话人: <span></span></h4>
             <hr>
         </div>
         <div id="message-container">
@@ -64,11 +68,29 @@
 </script>
 
 <script type="template" id="template2">   <!--在线用户列表模板-->
-    <ul id="userList-ul">
-        {{template8}}
-        <li class="userList"><p>{{template9}}</p><p></p></li>
-        {{template10}}
-    </ul>
+    <div class="list-title">
+        <h4 style="margin: 8px 0px 5px 0px;">在线好友</h4>
+    </div>
+    <div class="user-list-container">
+        <ul id="userList-ul">
+            {{template8}}
+            <li class="userList">{{template9}}</li>
+            {{template10}}
+        </ul>
+    </div>
+</script>
+
+<script type="template" id="friendsList">   <!--好友列表模板-->
+    <div class="list-title">
+        <h4 style="margin: 8px 0px 5px 0px;">我的好友</h4>
+    </div>
+    <div class="friends-list-container">
+        <ul id="friends-list">
+            {{template11}}
+            <li class="friends-list">{{template12}}</li>
+            {{template13}}
+        </ul>
+    </div>
 </script>
 
 

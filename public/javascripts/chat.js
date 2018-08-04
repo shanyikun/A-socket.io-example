@@ -27,6 +27,65 @@ $('#send').bind({
     }
 })
 
+$('.iconfont.icon-tongxunlu').bind({
+    'click': function(event){
+        $.ajax({
+            type: 'get',
+            dataType: 'json',
+            url: '/getContactList',
+            success: function(data){
+                if(data.err===500){
+                    alert('server error')
+                }
+                else {
+                    var ret=template('friendsList', {
+                        friendsList: data.message
+                    })
+                    $('#userList').html(ret)
+                }
+            }
+        })
+    }
+})
+
+$('.iconfont.icon-zaixianyonghu').bind({
+    'click': function(event){
+        var userList=JSON.parse(window.localStorage.getItem('onlineUserList of '+username))
+        var ret=template('template2', {
+            userList: userList
+        })
+        $('#userList').html(ret)
+
+        $('li.userList').bind({   //绑定用户列表单击事件，一定要在监听事件中绑定
+            'click': function(event){
+                var messages=JSON.parse(window.localStorage.getItem($(this).text()))||[]
+                $('#message-container-2 span').text($(this).text())   //渲染当前对话人信息
+
+                $('li.userList').each(function(index,item){   //使当前对话用户列表项颜色加深
+                    if($(item).text().trim()===$('#message-container-2 span').text().trim()){
+                        $(item).css({
+                            backgroundColor: '#C3C3C3'
+                        })
+                    }
+                    else {
+                        $(item).css({
+                            backgroundColor: '#EEEAE8'
+                        })
+                    }
+                })
+
+                var ret=template('template',{     //渲染当前对话信息
+                    messages: messages,
+                    username: username
+                })
+                $('#message-container').html(ret)
+                $('#message-container').scrollTop($('#message-container')[0].scrollHeight)  //让滚动条处于div最下方
+            }
+        })
+
+    }
+})
+
 
 socket.emit('login',username)   //传递用户信息
 
@@ -67,6 +126,7 @@ socket.on('chat message',function(data, to){   //客户端监听消息事件，�
 
 socket.on('login',function(data){   //接收用户列表事件并渲染在线用户列表
     data.splice(data.indexOf(username),1)
+    window.localStorage.setItem('onlineUserList of '+username , JSON.stringify(data))
     var ret=template('template2',{
         userList: data
     })
@@ -97,7 +157,7 @@ socket.on('login',function(data){   //接收用户列表事件并渲染在线用
                 }
             })
 
-            var ret=template('template',{
+            var ret=template('template',{     //渲染当前对话信息
                 messages: messages,
                 username: username
             })
