@@ -28,7 +28,8 @@ app.use(router)
 
 io.on('connection',function(socket){   /*服务端socket只能在服务器启动时监听连接*/
     console.log('a user connected')
-    socket.on('disconnect', function(){
+
+    socket.on('disconnect', function(){    //用户断开连接时删除相关用户列表，并重新渲染
         console.log('a user disconnect')
         userList.splice(userList.findIndex(function(item){
             return item===socket.name

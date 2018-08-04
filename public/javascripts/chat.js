@@ -1,12 +1,14 @@
 var socket=io()     //连接服务器socket
-var messages=JSON.parse(window.localStorage.getItem('messages'))||[]  //获取localStorage中的信息
+var messages=JSON.parse(window.localStorage.getItem('messages'))||[]  //默认获取localStorage中的群组信息
 var username=$('i').text()    //获取登陆用户信息
 
-var ret=template('template',{
+var ret=template('template',{    //默认渲染信息列表
     messages: messages,
     username: username
 })
 $('#message-container').html(ret)
+
+$('#message-container-2 span').text('messages')  //默认加载当前对话人信息
 
 $('#send').bind({
     'submit': function(event){
@@ -70,6 +72,12 @@ socket.on('login',function(data){   //接收用户列表事件并渲染在线用
     })
 
     $('#userList').html(ret)
+
+    $('li.userList').filter(function(index, item){    //默认使群组列表项颜色加深
+        return $(item).text().trim()===$('#message-container-2 span').text().trim()
+    }).css({
+        backgroundColor: '#c3c3c3'
+    })
 
     $('li.userList').bind({   //绑定用户列表单击事件，一定要在监听事件中绑定
         'click': function(event){

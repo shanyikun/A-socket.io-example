@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>chat</title>
     <link rel="stylesheet" href="../public/stylesheets/chat.css">
+    <link rel="stylesheet" href="../public/stylesheets/icon-font/iconfont.css">
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
     <script src="../node_modules/art-template/lib/template-web.js"></script>
     <script src="/socket.io/socket.io.js"></script>
@@ -11,13 +12,19 @@
 <body>
 <div id="page">
   <div id="container">
+      <div id="userinfo">
+          <div class="iconfont icon-account" title="账号信息"></div>   <!--字体图标-->
+          <div class="logout-link">
+              <a href="/logout">退出</a>
+          </div>
+      </div>
       <div id="userList">
 
       </div>
 
       <div id="message-container-2">
         <div id="chat-name-container">
-              <h4 style="margin: 5px 0px;">当前对话人: <span>messages</span></h4>
+              <h4 style="margin: 5px 0px;">当前对话人: <span></span></h4>
             <hr>
         </div>
         <div id="message-container">
@@ -34,7 +41,6 @@
   </div>
 </div>
 <h3>当前登录用户： <i>{{user.name}}</i></h3>
-<a href="/logout">退出</a>
 
 <script type="template" id="template">  <!--信息列表模板-->
 
@@ -49,9 +55,9 @@
 <ul>
     {{template1}}
     {{template5}}
-    <li class="selfmsg">{{template2}} says: {{template3}}</li>
+    <li class="selfmsg"><p class="username">{{template2}}</p><p class="msg">{{template3}}</p></li>
     {{template6}}
-    <li class="othermsg">{{template2}}says: {{template3}}</li>
+    <li class="othermsg"><p class="username">{{template2}}</p><p class="msg">{{template3}}</p></li>
     {{template7}}
     {{template4}}
 </ul>
@@ -60,7 +66,7 @@
 <script type="template" id="template2">   <!--在线用户列表模板-->
     <ul id="userList-ul">
         {{template8}}
-        <li class="userList">{{template9}}</li>
+        <li class="userList"><p>{{template9}}</p><p></p></li>
         {{template10}}
     </ul>
 </script>

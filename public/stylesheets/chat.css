@@ -2,7 +2,47 @@
     list-style-type: none;
     padding-left: 0px;
 }
-.selfmsg{
+.selfmsg,.othermsg{
+    margin: 30px 0px;
+}
+.selfmsg .username{
+    float: right;
+    clear: both;
+   /* display: inline;*/
+    margin: 2px;
+    color: #999;
+}
+.selfmsg .msg{
+    float: right;
+    clear: both;
+    display: inline;
+    background-color: #9EEA6A;
+    max-width: 250px;
+    padding: 8px;
+    margin: 2px;
+    border-radius: 6px;
+    word-break: break-all;
+}
+.othermsg .username{
+    float: left;
+    clear: both;
+   /* display: inline;*/
+    margin: 2px;
+    color: #999;
+}
+.othermsg .msg{
+    float: left;
+    clear: both;
+    display: inline;
+    background-color: #FFFFFF;
+    border: 1px solid #eee;
+    max-width: 250px;
+    padding: 8px;
+    margin: 2px;
+    border-radius: 6px;
+    word-break: break-all;
+}
+/*.selfmsg{
     background-color: greenyellow;
     border: solid 1px greenyellow;
     max-width: 250px;
@@ -26,28 +66,9 @@
     float: left;
     clear: both;
     word-break: break-all;
-}
-
-/*.othermsg{   //非列表形式
-    background-color: lightgray;
-    border: solid 1px lightgray;
-    height: 30px;
-    margin: 10px 5px;
-    border-radius: 4px;
-    display: inline;
-    float: left;
-    clear: both;
-}
-.selfmsg{
-    background-color: greenyellow;
-    border: solid 1px greenyellow;
-    height: 30px;
-    margin: 10px 5px;
-    border-radius: 4px;
-    display: inline;
-    float: right;
-    clear: both;
 }*/
+
+
 #page{
     display: flex;
     justify-content: space-around;
@@ -57,14 +78,19 @@
     width: 50%;
     display: flex;
 }
+#userinfo{
+    background-color: #27292C;
+    width: 7%;
+    text-align: center;
+}
 #userList{
     background-color: #EEEAE8;
-    width: 30%;
+    width: 26%;
 }
 #message-container-2{
     display: flex;
     flex-direction: column;
-    width: 70%;
+    width: 67%;
     justify-content: space-between;
     background-color: #F5F5F5;
 }
@@ -114,4 +140,25 @@ textarea{
 }
 #chat-name-container h4{
     margin: 5px 0px 10px 0px;
+}
+#userinfo a{
+    text-decoration: none;
+    border: solid 1px white;
+    border-radius: 3px;
+    color: white;
+}
+#userinfo a:hover{
+    color: #9EEA6A;
+}
+#userinfo .iconfont{   /*字体图标样式*/
+    font-size: 30px;
+    color: white;
+    font-weight: lighter;
+    margin-top: 30px;
+}
+#userinfo div:hover{    /*字体图标hover样式*/
+    color: #9EEA6A;
+}
+.logout-link{
+    margin-top: 30px;
 }
