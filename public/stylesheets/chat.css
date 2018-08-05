@@ -114,6 +114,8 @@
 #form-container{
     height: 30%;
     position: relative;
+    border-right: solid 2px #F5F5F5;
+    border-bottom: solid 2px #F5F5F5;
 }
 input[type=text]{
     height: 100px;
@@ -123,11 +125,16 @@ input[type=text]{
 }
 input[type=submit]{
     position: absolute;
+    border: 1px solid #d5d5d5;
     right: 3px;
     bottom: 3px;
     background-color: #F5F5F5;
     width: 60px;
-    height: 30px
+    height: 25px;
+    outline: none;
+}
+input[type=submit]:hover{
+    background-color: #09BB07;
 }
 #userList-ul, #friends-list{
     padding: 0px;
@@ -140,6 +147,9 @@ input[type=submit]{
     height: 40px;
     text-align: left;
 }
+#userList-ul .userList .username{
+    margin: 0px;
+}
 #userList-ul li:hover{
     background-color: #C3C3C3;
 }
@@ -149,7 +159,11 @@ textarea{
     background-color: #F5F5F5;
     height: 110px;
     outline: none;
+    resize: none;
 }
+/*textarea:focus{
+    background-color:white;
+}*/
 #chat-name-container h4{
     margin: 5px 0px 10px 0px;
 }
@@ -187,7 +201,7 @@ textarea{
     padding: 15px;
 }
 
-#message-inform-badge{     /*消息提醒徽标*/
+.message-inform-badge{     /*消息提醒徽标*/
     display: none;
     position: absolute;
     background-color: red;
@@ -198,4 +212,8 @@ textarea{
     border-radius: 50%;
     text-align: center;
     padding: 0px;
+    margin: 0px;
+}
+#form-container .form-hr{
+    margin-top: 0px;
 }

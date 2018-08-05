@@ -17,9 +17,9 @@
     <p>邮箱： <i class="email">{{user.email }}</i></p>
 </div>
 
-<div id="message-inform-badge">   <!--消息提醒徽标，绝对定位，不影响正文-->
+<!--<div id="message-inform-badge">   &lt;!&ndash;消息提醒徽标，绝对定位，不影响正文&ndash;&gt;
     0
-</div>
+</div>-->
 
 <div id="page">
   <div id="container">
@@ -44,7 +44,7 @@
 
         </div>
         <div id="form-container">
-            <hr>
+           <hr class="form-hr">
            <form action="" id="send">
               <textarea></textarea><br>
               <input type="submit" value="send">
@@ -83,7 +83,7 @@
     <div class="user-list-container">
         <ul id="userList-ul">
             {{template8}}
-            <li class="userList">{{template9}}</li>
+            <li class="userList"><p class="username">{{template9}}</p><p class="message-inform-badge">0</p></li>
             {{template10}}
         </ul>
     </div>
