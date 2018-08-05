@@ -12,6 +12,15 @@
     <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
+<div id="userPop">      <!--用户信息弹出框，绝对定位，不影响正文-->
+    <p>用户名： <i class="username">{{user.name}}</i></p>
+    <p>邮箱： <i class="email">{{user.email }}</i></p>
+</div>
+
+<div id="message-inform-badge">   <!--消息提醒徽标，绝对定位，不影响正文-->
+    0
+</div>
+
 <div id="page">
   <div id="container">
       <div id="userinfo">

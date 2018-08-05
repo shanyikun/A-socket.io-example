@@ -1,6 +1,6 @@
 var socket=io()     //连接服务器socket
 var messages=JSON.parse(window.localStorage.getItem('messages'))||[]  //默认获取localStorage中的群组信息
-var username=$('i').text()    //获取登陆用户信息
+var username=$('#userPop .username').text()    //获取登陆用户信息
 
 var ret=template('template',{    //默认渲染信息列表
     messages: messages,
@@ -8,11 +8,11 @@ var ret=template('template',{    //默认渲染信息列表
 })
 $('#message-container').html(ret)
 
-$('#message-container-2 span').text('messages')  //默认加载当前对话人信息
+$('#chat-name-container span').text('messages')  //默认加载当前对话人信息
 
 $('#send').bind({
     'submit': function(event){
-        var to=$('#message-container-2 span').text()
+        var to=$('#chat-name-container span').text()
         var message=$('textarea').val()
         $('textarea').val('')
 
@@ -27,7 +27,33 @@ $('#send').bind({
     }
 })
 
-$('.iconfont.icon-tongxunlu').bind({
+$('.iconfont.icon-account').bind({    //用户信息单击事件绑定
+    'click': function(event){
+        if($('#userPop').css('display')==='block'){
+            $('#userPop').css({
+                display: 'none'
+            })
+        }
+        else {
+            var position=$(this).offset()
+            $('#userPop').css({
+                display: 'block',
+                left: parseInt(position.left)+30+'px',
+                top: parseInt(position.top)+20+'px'
+            })
+        }
+    }
+})
+
+$('#userPop').bind({      //用户信息单击消失绑定
+    'click' : function(event){
+        $(this).css({
+            display: 'none'
+        })
+    }
+})
+
+$('.iconfont.icon-tongxunlu').bind({    //通讯录事件绑定
     'click': function(event){
         $.ajax({
             type: 'get',
@@ -48,7 +74,7 @@ $('.iconfont.icon-tongxunlu').bind({
     }
 })
 
-$('.iconfont.icon-zaixianyonghu').bind({
+$('.iconfont.icon-zaixianyonghu').bind({     //在线用户事件绑定
     'click': function(event){
         var userList=JSON.parse(window.localStorage.getItem('onlineUserList of '+username))
         var ret=template('template2', {
@@ -59,10 +85,10 @@ $('.iconfont.icon-zaixianyonghu').bind({
         $('li.userList').bind({   //绑定用户列表单击事件，一定要在监听事件中绑定
             'click': function(event){
                 var messages=JSON.parse(window.localStorage.getItem($(this).text()))||[]
-                $('#message-container-2 span').text($(this).text())   //渲染当前对话人信息
+                $('#chat-name-container span').text($(this).text())   //渲染当前对话人信息
 
                 $('li.userList').each(function(index,item){   //使当前对话用户列表项颜色加深
-                    if($(item).text().trim()===$('#message-container-2 span').text().trim()){
+                    if($(item).text().trim()===$('#chat-name-container span').text().trim()){
                         $(item).css({
                             backgroundColor: '#C3C3C3'
                         })
@@ -93,23 +119,57 @@ socket.on('chat message',function(data, to){   //客户端监听消息事件，�
     if(to==='messages'){   //群发验证
         messages.push(data)
         window.localStorage.setItem('messages',JSON.stringify(messages))
-        var ret=template('template',{
-            messages: messages,
-            username: username
-        })
-        $('#message-container').html(ret)
-        $('#message-container').scrollTop($('#message-container')[0].scrollHeight)  //让滚动条处于div最下方
+
+        if($('#chat-name-container span').text()==='messages'){  //如果当前窗口是消息指定发送窗口则渲染，否则不渲染并加上徽标提示
+            var ret=template('template',{
+                messages: messages,
+                username: username
+            })
+            $('#message-container').html(ret)
+            $('#message-container').scrollTop($('#message-container')[0].scrollHeight)  //让滚动条处于div最下方
+        }
+        else {
+            var position=$('li.userList').filter(function(index, item){    //获取目标列表位置
+                return $(item).text().trim()==='messages'
+            }).offset()
+            var width=$('li.userList').filter(function(index, item){    //获取目标列表宽度
+                return $(item).text().trim()==='messages'
+            }).css('width')
+            $('#message-inform-badge').text(parseInt($('#message-inform-badge').text())+1).css({  //消息徽标提示
+                display: 'block',
+                left: parseFloat(position.left)+parseFloat(width)-18+'px',
+                top: position.top
+            })
+        }
+
     }
     else if(to===username){    //别人向自己发送
         var messageOther=JSON.parse(window.localStorage.getItem(data.name))||[]
         messageOther.push(data)
         window.localStorage.setItem(data.name, JSON.stringify(messageOther))
-        var retOther=template('template',{
-            messages: messageOther,
-            username: username
-        })
-        $('#message-container').html(retOther)
-        $('#message-container').scrollTop($('#message-container')[0].scrollHeight)  //让滚动条处于div最下方
+
+        if($('#chat-name-container span').text()===data.name){  //如果当前窗口是消息指定发送窗口则渲染，否则不渲染并加上徽标提示
+            var retOther=template('template',{
+                messages: messageOther,
+                username: username
+            })
+            $('#message-container').html(retOther)
+            $('#message-container').scrollTop($('#message-container')[0].scrollHeight)  //让滚动条处于div最下方
+        }
+        else {
+            var position=$('li.userList').filter(function(index, item){    //获取目标列表位置
+                return $(item).text().trim()===data.name
+            }).offset()
+            var width=$('li.userList').filter(function(index, item){    //获取目标列表宽度
+                return $(item).text().trim()===data.name
+            }).css('width')
+            $('#message-inform-badge').text(parseInt($('#message-inform-badge').text())+1).css({  //消息徽标提示
+                display: 'block',
+                left: parseFloat(position.left)+parseFloat(width)-18+'px',
+                top: position.top
+            })
+        }
+
     }
     else {       //自己发送自己接收
         var messageSelf=JSON.parse(window.localStorage.getItem(to))||[]
@@ -134,18 +194,22 @@ socket.on('login',function(data){   //接收用户列表事件并渲染在线用
     $('#userList').html(ret)
 
     $('li.userList').filter(function(index, item){    //默认使群组列表项颜色加深
-        return $(item).text().trim()===$('#message-container-2 span').text().trim()
+        return $(item).text().trim()===$('#chat-name-container span').text().trim()
     }).css({
         backgroundColor: '#c3c3c3'
     })
 
     $('li.userList').bind({   //绑定用户列表单击事件，一定要在监听事件中绑定
         'click': function(event){
+            $('#message-inform-badge').text('0').css({     //消息提醒徽标清零并消失
+                display: 'none'
+            })
+
             var messages=JSON.parse(window.localStorage.getItem($(this).text()))||[]
-            $('#message-container-2 span').text($(this).text())   //渲染当前对话人信息
+            $('#chat-name-container span').text($(this).text())   //渲染当前对话人信息
 
             $('li.userList').each(function(index,item){   //使当前对话用户列表项颜色加深
-                if($(item).text().trim()===$('#message-container-2 span').text().trim()){
+                if($(item).text().trim()===$('#chat-name-container span').text().trim()){
                     $(item).css({
                         backgroundColor: '#C3C3C3'
                     })
